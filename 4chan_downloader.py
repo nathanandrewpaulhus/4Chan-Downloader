@@ -26,6 +26,8 @@ count = 0
 #number of appearances of a substring is greater than 0
 def contains(string,query):
         return string.find(query) > -1
+#Ask the user for the folder they want to use
+folder = raw_input("Enter the name of the folder the images will be saved in: ")
 #Loop through each element of the split HTML string
 for i in splits:
         #If the line contains the portion of the HTML image tags...
@@ -36,15 +38,15 @@ for i in splits:
                 location = i[i.find('<a href="http') + 9:i.find('" target="')]
                 #Create the downloads directory if it does not exist
                 try:
-                        if not os.path.exists("Image Downloads"):
-                                os.makedirs("Image Downloads")
+                        if not os.path.exists(folder):
+                                os.makedirs(folder)
                 #Catch any errors in the creation of the directory
                 except OSError:
                         print 'Failed to create directory'
                 #Attempt to download the image from the already obtained URL
                 try:
                         image = urllib.URLopener()
-                        image.retrieve(location,'Image Downloads/' + name)
+                        image.retrieve(location,folder + '/' + name)
                         print 'Downloaded image number ' + str(count)
                 #Catch any Errors. Most likely to be HTML 404 error
                 except:
